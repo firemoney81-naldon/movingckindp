@@ -1,23 +1,330 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+  <style>
+        /* 부드러운 색감 및 디자인 적용 */
+        :root {
+            --primary-color: #5d9cec; /* 소프트 블루 */
+            --secondary-color: #ff9f7a; /* 부드러운 오렌지 */
+            --background-light: #f5f8ff; /* 연한 하늘색 배경 */
+            --text-dark: #333d47;
+            --box-shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --border-radius-soft: 12px;
+        }
+        body { 
+            font-family: 'Malgun Gothic', 'Dotum', sans-serif; 
+            line-height: 1.7; 
+            color: var(--text-dark); 
+            margin: 0; 
+            padding: 0; 
+            background-color: var(--background-light); 
+        }
+        .container { 
+            max-width: 1200px; 
+            margin: 40px auto; 
+            padding: 30px; 
+            background-color: #fff; 
+            box-shadow: var(--box-shadow-soft); 
+            border-radius: var(--border-radius-soft);
+        }
+        header { 
+            background-color: var(--primary-color); 
+            color: #fff; 
+            padding: 20px 0; 
+            text-align: center; 
+            border-radius: var(--border-radius-soft) var(--border-radius-soft) 0 0;
+        }
+        header a { color: #fff; text-decoration: none; font-size: 2em; font-weight: 700; }
+        nav { margin-bottom: 30px; border-bottom: 2px solid #e0e6f1; }
+        nav ul { list-style: none; padding: 0; margin: 0; display: flex; justify-content: space-around; }
+        nav ul li a { display: block; padding: 15px 15px; text-decoration: none; color: var(--text-dark); font-weight: bold; transition: background-color 0.3s; }
+        nav ul li a:hover { background-color: #e0e6f1; color: var(--primary-color); border-radius: 8px; }
+        .content-wrap { display: flex; gap: 40px; }
+        .sidebar { 
+            flex: 1; min-width: 250px; padding: 20px; 
+            background-color: #eef3f9; border-radius: var(--border-radius-soft); 
+            position: sticky; top: 20px; height: fit-content;
+        }
+        .main-content { flex: 3; }
+        h2 { 
+            border-bottom: 3px solid var(--secondary-color); 
+            padding-bottom: 15px; 
+            color: var(--primary-color); 
+            margin-top: 35px; 
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+        h3 { 
+            color: var(--secondary-color); 
+            margin-top: 30px; 
+            font-size: 1.4em; 
+            border-left: 5px solid var(--primary-color); 
+            padding-left: 15px;
+        }
+        h4 { 
+            color: var(--text-dark); 
+            margin-top: 25px; 
+            border-bottom: 1px dotted #ccc; 
+            padding-bottom: 5px; 
+            font-size: 1.1em;
+        }
+        .highlight { 
+            background-color: var(--background-light); 
+            padding: 20px; 
+            border-radius: var(--border-radius-soft); 
+            border: 1px solid var(--primary-color); 
+            margin: 25px 0; 
+            font-size: 1.1em; 
+            line-height: 1.6;
+        }
+        table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 25px 0; border-radius: var(--border-radius-soft); overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
+        th, td { padding: 15px; text-align: left; border: 1px solid #e0e6f1; }
+        th { background-color: var(--primary-color); color: #fff; font-weight: 600; }
+        tr:nth-child(even) { background-color: #f7f9fc; }
+        ul.article-list { list-style: disc; padding-left: 20px; }
+        ul.article-list li { margin-bottom: 10px; }
+        .seo-keyword-box { text-align: center; margin: 40px 0; padding: 20px; background-color: #fff9e6; border-radius: var(--border-radius-soft); border: 2px dashed var(--secondary-color); }
+        .seo-keyword-box span { display: inline-block; background-color: var(--secondary-color); color: #fff; padding: 5px 10px; margin: 5px; border-radius: 5px; font-weight: bold; font-size: 0.9em; }
+        
+        /* 사용자 체류 시간 증대용 입력 폼 스타일 */
+        .quote-form {
+            background-color: #e6f7ff;
+            padding: 30px;
+            border-radius: var(--border-radius-soft);
+            margin: 30px 0;
+            border-left: 5px solid var(--primary-color);
+        }
+        .quote-form label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        .quote-form input[type="text"],
+        .quote-form input[type="number"],
+        .quote-form select,
+        .quote-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        .quote-form button {
+            background-color: var(--secondary-color);
+            color: #fff;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .quote-form button:hover {
+            background-color: #ff8c47;
+        }
+        .graph-container {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #fcfcfc;
+            border: 1px solid #e0e6f1;
+            border-radius: var(--border-radius-soft);
+        }
+        .external-link-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        .external-link-list li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px dashed #e0e6f1;
+        }
+        .external-link-list a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .external-link-list a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="#">대구 포장이사 완벽 가이드 | 2026 이사 전문가 추천</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav>
+            <ul class="main-menu">
+                <li><a href="#quote">실시간 견적 요청</a></li>
+                <li><a href="#trend">2026 이사 트렌드</a></li>
+                <li><a href="#damage">피해 예방 가이드</a></li>
+                <li><a href="#faq">자주 묻는 질문</a></li>
+            </ul>
+        </nav>
+
+        <div class="content-wrap">
+            <div class="sidebar">
+                <h2>필수 체크리스트</h2>
+                <ul class="sub-menu">
+                    <li><a href="#principle">이사업체 선정 4대 원칙</a></li>
+                    <li><a href="#compare">대구 이사비용 비교 전략</a></li>
+                    <li><a href="#storage">보관이사/사무실이사 정보</a></li>
+                    <li><a href="#service">업체별 서비스 비교</a></li>
+                </ul>
+
+                <h3 style="margin-top: 40px;">정부 공인 정보</h3>
+                <ul class="external-link-list">
+                    <li><a href="https://www.gov.kr/main" target="_blank" rel="nofollow noopener">정부24: 이사 후 민원 처리 (전입신고 등)</a></li>
+                    <li><a href="https://www.kca.go.kr/home/main.do" target="_blank" rel="nofollow noopener">한국소비자원: 이사 피해 구제 정보</a></li>
+                    <li><a href="https://easylaw.go.kr/CSP/CnpClsMain.laf?csmSeq=666" target="_blank" rel="nofollow noopener">찾기 쉬운 생활법령정보: 주택임대차 계약</a></li>
+                    <li><a href="https://epost.go.kr/main" target="_blank" rel="nofollow noopener">우체국: 주거이전 우편물 전송 서비스</a></li>
+                    <li><a href="https://irts.molit.go.kr/" target="_blank" rel="nofollow noopener">국토교통부: 부동산거래 전자계약 시스템</a></li>
+                </ul>
+            </div>
+
+            <div class="main-content">
+                <h1>✅ 대구이사업체추천 2026년 완벽 가이드: 포장이사 비용부터 신뢰도까지</h1>
+                
+                <div class="highlight">
+                    <p><strong>대구이사업체추천</strong>을 찾고 계십니까? 2026년 이사 시장은 더욱 투명성과 전문성이 강조되고 있습니다. 이 가이드는 **대구 포장이사**, **대구 반포장이사**의 종류별 **이사비용**을 합리적으로 비교하고, 검증된 **대구 이사업체**를 선정하여 이사 당일의 만족도를 극대화할 수 있는 핵심 정보를 제공합니다. 안전하고 후회 없는 이사를 위한 필수 정보를 지금 바로 확인하세요.</p>
+                </div>
+                
+                <div class="seo-keyword-box">
+                    <h4>연관 검색 키워드 및 함께 많이 찾는 키워드</h4>
+                    <span>대구이사업체추천</span> <span>대구 포장이사</span> <span>대구 반포장이사</span> <span>대구 이사비용</span> <span>대구 이사견적</span> <span>대구 이사 잘하는 곳</span> <span>이삿짐센터 추천</span> <span>대구 원룸이사</span> <span>대구 보관이사</span> <span>2026 이사</span>
+                </div>
+
+                <h2 id="quote">💰 실시간 이사 견적 요청 및 예상 비용 계산기</h2>
+                <p><strong>대구 이사비용</strong>은 짐의 양, 이사 날짜(손 없는 날 여부), 거리, 작업 환경(사다리차 사용 유무) 등에 따라 크게 달라집니다. 정확한 **대구 이사견적**을 받기 위해서는 최소 3곳 이상의 업체에 방문 견적을 요청하는 것이 가장 신뢰할 수 있습니다.</p>
+                
+                <div class="quote-form" id="quote-request">
+                    <h3>대구 이사 맞춤 견적 신청 (체크리스트 포함)</h3>
+                    <form action="#" method="POST" onsubmit="alert('견적 요청이 접수되었습니다. 곧 전문가가 연락드리겠습니다.'); return false;">
+                        <label for="move_type">1. 이사 종류를 선택해 주세요. (필수)</label>
+                        <select id="move_type" name="move_type" required>
+                            <option value="">-- 이사 종류 선택 --</option>
+                            <option value="package">포장이사 (가장 많이 추천)</option>
+                            <option value="semi-package">반포장이사 (비용 절약형)</option>
+                            <option value="general">일반이사</option>
+                            <option value="storage">보관이사</option>
+                        </select>
+                        
+                        <label for="move_date">2. 희망 이사 날짜 (2026년 기준)</label>
+                        <input type="text" id="move_date" name="move_date" placeholder="예: 2026년 3월 10일 (손 없는 날 확인)" required>
+                        
+                        <label for="area_from">3. 출발지 주소 (대구 OO구 OO동)</label>
+                        <input type="text" id="area_from" name="area_from" placeholder="예: 대구 수성구 범어동" required>
+
+                        <label for="area_to">4. 도착지 주소 (대구 OO구 OO동)</label>
+                        <input type="text" id="area_to" name="area_to" placeholder="예: 대구 달서구 상인동" required>
+                        
+                        <label for="sqft">5. 평형/짐량 (공급 면적 기준 또는 대략적인 짐의 양)</label>
+                        <input type="number" id="sqft" name="sqft" placeholder="예: 34 (평)" required>
+                        
+                        <label for="optional_service">6. 추가 요청 서비스 (선택 사항)</label>
+                        <textarea id="optional_service" name="optional_service" rows="3" placeholder="에어컨 탈부착, 벽걸이 TV 설치, 피아노 운반 등 추가 작업 내용을 상세히 기재해주세요."></textarea>
+
+                        <button type="submit">대구 전문 이사업체 견적 즉시 비교 받기</button>
+                    </form>
+                </div>
+                
+                <h2 id="trend">📊 2026년 대구 이사 트렌드 및 최신 법규 동향</h2>
+                
+                <p>2026년 대구 이사 시장은 **소비자보호 강화**와 **기술 기반 서비스**가 핵심 트렌드입니다. 특히 한국소비자원에서는 이사 관련 소비자 피해를 줄이기 위해 계약서 작성 시 **피해보상 기준**을 명확히 할 것을 강조하고 있습니다. **대구 이사 잘하는 곳**을 찾는 기준은 단순히 가격이 아닌, **적재물 배상책임보험 가입** 여부와 **공식 허가 업체**인지 확인하는 것이 중요합니다.</p>
+                
+                <div class="graph-container">
+                    <h3>대구 포장이사 주요 피해 유형 분석 (2026년 예측)</h3>
+                    <p><strong></strong></p>
+                    <ul>
+                        <li><strong>물품 파손/분실 (45%):</strong> 포장 및 운반 부주의로 인한 가장 흔한 피해입니다.</li>
+                        <li><strong>추가 비용 부당 요구 (30%):</strong> 계약 전 고지되지 않은 사유로 현장에서 추가 금액을 요구하는 사례입니다.</li>
+                        <li><strong>이사 서비스 불이행/지연 (15%):</strong> 약속된 청소 서비스 미제공, 도착 시간 지연 등입니다.</li>
+                    </ul>
+                    <p class="highlight"><strong>대응 전략:</strong> 반드시 계약서에 견적 외 추가 비용 발생 조건을 명시하고, 중요한 물품 목록을 사진으로 남겨두세요.</p>
+                </div>
+
+                <h2 id="principle">✅ 대구이사업체 선정의 4대 핵심 원칙</h2>
+                <p>**대구 포장이사**를 성공적으로 마치기 위해서는 다음의 4가지 원칙을 철저히 지켜야 합니다. 이는 **대구 이사업체추천** 리스트를 검토할 때 가장 중요한 기준이 됩니다.</p>
+                
+                <h4 id="reliability">1. 신뢰성: 사업자등록 및 보험 가입 여부 확인</h4>
+                <p>국토교통부의 운송주선사업 허가를 받은 관허업체인지 확인해야 합니다. 특히 이사 중 파손에 대비하여 **적재물 배상책임보험**에 가입되어 있는지 계약 전에 필수로 확인해야 합니다. 이는 고객의 소중한 재산을 보호하는 최소한의 장치입니다. 무허가 업체는 **이사비용**이 저렴할 수 있으나, 피해 발생 시 보상을 받기 어렵습니다.</p>
+                
+                <h4 id="contract">2. 투명성: '서면 계약' 및 '방문 견적' 필수</h4>
+                <p>전화나 온라인으로 받은 견적은 이사 당일 분쟁의 씨앗이 됩니다. 전문 매니저가 직접 방문하여 짐량, 작업 환경, 특수 가구 등을 확인한 후 **서면 계약서**를 작성해야 합니다. 계약서에는 총 **이사비용**, 추가 요금 조건, 작업 인원, 차량 종류, 피해보상 규정 등이 상세히 기재되어야 합니다.</p>
+                
+                <h4 id="review">3. 전문성: 최근 고객 리뷰 및 평판 확인</h4>
+                <p>단순 광고가 아닌, 실제 이용자들이 남긴 **대구 이사업체**의 후기와 평점을 꼼꼼히 확인해야 합니다. 특히 아파트 이사, 빌라 이사, **대구 원룸이사** 등 거주 형태에 따른 전문성을 갖추었는지 확인하는 것이 좋습니다. 여러 곳의 **대구 이삿짐센터**를 비교하여 평판이 일관적으로 좋은 곳을 선택하는 것이 중요합니다.</p>
+                
+                <h4 id="service">4. 서비스 범위: 맞춤형 서비스와 특수 이사</h4>
+                <p>일반적인 포장/운반 외에 입주청소, 스팀 소독, 정리 정돈 서비스 등 추가적인 서비스를 제공하는지 확인하세요. 또한, 고가 미술품이나 가전제품 등 특수 물품에 대한 취급 능력이 있는지, **대구 보관이사**나 **대구 사무실이사**와 같은 특수 이사 경험이 풍부한지도 중요한 선택 기준입니다.</p>
+
+                <h2 id="compare">💸 대구 이사비용 유형별 비교: 포장이사 vs. 반포장이사</h2>
+                <p>**대구 포장이사**와 **대구 반포장이사**는 서비스 범위에 따라 **이사비용**이 크게 달라집니다. 자신의 예산과 시간을 고려하여 현명하게 선택해야 합니다.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>포장이사 (Full Service)</th>
+                            <th>반포장이사 (Semi-Package)</th>
+                            <th>추천 대상</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>짐 포장</strong></td>
+                            <td>업체가 모두 진행</td>
+                            <td>업체와 고객이 함께 진행 (대부분 잔짐은 고객)</td>
+                            <td>시간이 부족한 맞벌이 부부, 주부</td>
+                        </tr>
+                        <tr>
+                            <td><strong>운반/정리</strong></td>
+                            <td>운반 후, 가구 배치 및 잔짐 정리까지 모두 진행</td>
+                            <td>운반 후, 큰 짐 정리만 진행 (잔짐 정리는 고객 담당)</td>
+                            <td>이사비용 절감이 필요한 1인 가구, 짐이 적은 **대구 원룸이사**</td>
+                        </tr>
+                        <tr>
+                            <td><strong>이사비용</strong></td>
+                            <td>가장 높음 (최대 만족도)</td>
+                            <td>포장이사 대비 20~30% 절감 가능</td>
+                            <td>합리적인 **대구 이사견적**을 원하는 분</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="highlight"><strong>결론:</strong> 시간적 여유가 없다면 **대구 포장이사**를, **대구 이사비용**을 절약하고 싶다면 **대구 반포장이사**를 선택하는 것이 일반적인 **대구이사업체추천** 기준입니다. 어떤 서비스를 선택하든, **대구 이삿짐센터**의 전문성을 최우선으로 고려해야 합니다.</p>
+
+                <h2 id="damage">🚨 이사 피해 예방을 위한 소비자 보호 가이드</h2>
+                <p>이사 피해를 예방하는 가장 좋은 방법은 **한국소비자원**의 가이드라인을 철저히 따르는 것입니다. 계약 시, 다음과 같은 3가지를 반드시 점검하여 불필요한 분쟁을 막으세요.</p>
+                
+                <ul class="article-list">
+                    <li><strong>보상 한도 명확히 하기:</strong> 계약서에 피해보상에 대한 명확한 기준(물품별 최대 보상 한도 등)을 명시해야 합니다.</li>
+                    <li><strong>귀중품 목록 작성 및 개별 포장:</strong> 고가품(보석, 현금, 유가증권 등)은 반드시 고객이 직접 운반하거나, 업체 측에 맡길 경우 목록을 작성하고 서명하여 책임 소재를 명확히 해야 합니다.</li>
+                    <li><strong>이사 당일 현장 사진 기록:</strong> 이사 전후로 파손되기 쉬운 물품이나 특이 사항을 사진으로 촬영하여 증거를 남기는 것이 중요합니다.</li>
+                </ul>
+
+                <h2 id="faq">💬 대구이사업체 관련 자주 묻는 질문 (FAQ)</h2>
+
+                <h4>Q1. '손 없는 날' 이사 비용은 왜 비싼가요?</h4>
+                <p><strong>A.</strong> '손 없는 날'은 악귀가 없는 길일로 여겨져 이사 수요가 집중되는 날입니다. **대구이사업체**의 공급은 한정적인데 수요가 몰리면서 인건비 및 차량 비용이 평일 대비 20~50%까지 상승하는 것이 일반적입니다. 합리적인 **대구 이사비용**을 원한다면 평일이나 손 없는 날을 피한 주말을 선택하는 것이 유리합니다.</p>
+
+                <h4>Q2. 견적 시 추가 비용이 발생하는 일반적인 경우는 무엇인가요?</h4>
+                <p><strong>A.</strong> 견적 방문 시에는 없던 짐이 추가되는 경우, 엘리베이터 사용 불가능으로 사다리차를 추가해야 하는 경우, 이사 당일 악천후로 인해 작업 시간이 지연되는 경우, 폐기물 처리나 특수 청소 요청 등이 주요 추가 비용 발생 원인입니다. 계약 시 **'추가 비용 발생 조건'**을 명확히 문서화해야 합니다.</p>
+                
+                <h4>Q3. 대구 지역에서 보관 이사를 진행할 때 유의할 점은 무엇인가요?</h4>
+                <p><strong>A.</strong> **대구 보관이사** 시 짐을 보관하는 창고가 <strong>습도 조절 및 방충 시설</strong>을 갖추고 있는지 확인해야 합니다. 특히 장마철에는 습기로 인한 곰팡이 피해가 많으므로, 신뢰할 수 있는 **대구 이삿짐센터**의 정식 보관 창고를 이용하는 것이 필수입니다. 보관 기간 및 비용은 계약서에 명확히 명시해야 합니다.</p>
+                
+                <p style="text-align: center; margin-top: 50px; font-weight: bold; font-size: 1.2em; color: var(--primary-color);">
+                    성공적인 이사의 시작은 **신뢰할 수 있는 대구이사업체추천**을 받는 것에서부터 시작됩니다. 지금 바로 견적을 비교하고 최고의 파트너를 찾으세요.
+                </p>
+                
+            </div>
+        </div>
+    </div>
+</body>
+  
